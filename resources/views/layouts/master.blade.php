@@ -75,25 +75,25 @@
                   <li class="active">
                       <a class="" href="index.html?sid={{$sid}}">
                           <i class="icon-dashboard"></i>
-                          <span>综合管理</span>
+                          <span>项目管理</span>
                       </a>
                   </li>
                   <li class="sub-menu">
                       <a class="" href="task_mgmr.html?sid={{$sid}}">
                           <i class="icon-tasks"></i>
-                          <span>任务管理</span>
+                          <span>自动更新</span>
                       </a>
                   </li>
                   <li class="sub-menu">
                       <a class="" href="user_mgmr.html?sid={{$sid}}">
                           <i class="icon-cogs"></i>
-                          <span>用户管理</span>
+                          <span>日志管理</span>
                       </a>
                   </li>
                   <li class="sub-menu">
                       <a class="" href="admin_mgmr.html?sid={{$sid}}">
                           <i class="icon-book"></i>
-                          <span>管理员管理</span>
+                          <span>leak & block</span>
                       </a>
                   </li>
                    <li class="sub-menu">
