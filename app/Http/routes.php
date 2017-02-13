@@ -37,6 +37,7 @@ Route::get('user/add_user.html', 'PageController@pageAddUser');
 Route::get('user/h5demo_edit.html', 'PageController@pageH5Demos');
 Route::get('user/h5demo_list.html', 'PageController@pageH5DemoList');
 Route::get('user/save_demo', 'PageController@addH5Demo');
+Route::get('user/deleteDemo', 'PageController@deleteDemo');
 
 Route::get('user/loginAdmin', 'AdminController@login');
 Route::get('user/deleteAdmin', 'AdminController@deleteAdmin');

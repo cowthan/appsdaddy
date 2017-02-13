@@ -275,9 +275,8 @@ class PageController extends Controller{
 					'code'=>'2',
 					'msg'=>'html，css，js这三个总得有一个有值吧'
 			);
-		}
-		else{
-			if(empty($id) || $id == 0){
+		}else{
+			if(empty($id) || $id == 0 || $id == '0'){
 				//insert
 				DB::table('h5_demos')->insert([
 						'ownerId'=>$ownerId,
@@ -288,9 +287,13 @@ class PageController extends Controller{
 						'jsCode'=>$jsCode,
 						'meta' => $meta
 				]);
+				$result_arr = array(
+					'code'=>'0',
+					'msg'=>'ok'
+				);
 			}else{
 				//update
-				DB::table('h5_demos')->update([
+				DB::table('h5_demos')->where('id', '=', $id)->update([
 						'ownerId'=>$ownerId,
 						'demoName'=>$demoName,
 						'demoImage'=>$demoImage,
@@ -298,18 +301,54 @@ class PageController extends Controller{
 						'cssCode'=>$cssCode,
 						'jsCode'=>$jsCode,
 						'meta' => $meta
-				])->where('id', $id);
-			}
-			$result_arr = array(
+				]);
+				$result_arr = array(
 					'code'=>'0',
 					'msg'=>'ok'
-			);
+				);
+			}
+			
 		}
 
     	//return response(json_encode($result_arr));
 		return response()->json($result_arr);
 		
     }
+
+    public function deleteDemo(Request $request){
+		$sid = $request->input('sid');
+		$id = $request->input('id');
+
+		$result_arr = array();
+
+		if(empty($sid)){
+			$result_arr = array(
+					'code'=>'1',
+					'msg'=>'未登录，sid为空'
+			);
+			return response()->json($result_arr);
+		}
+
+		if(empty($id)){
+			//新建
+			$result_arr = array(
+					'code'=>'1',
+					'msg'=>'必须指定要删除的id'
+			);
+			return response()->json($result_arr);
+
+		}else{
+			//update--结束
+			DB::table('h5_demos')->where('id','=', $id)->delete();
+			$result_arr = array(
+					'code'=>'0',
+					'msg'=>'ok',
+					'result'=>array()
+			);
+		}
+
+		return response()->json($result_arr);
+	}
 
 
     public function time2second($seconds){

@@ -30,10 +30,10 @@
                           </thead>
                           <tbody>
                           @foreach ($demos as $demo)
-                              <tr class="odd gradeX" style="cursor:pointer;" onclick="openPhoto('{{$demo->id}}');">
+                              <tr class="odd gradeX">
                                   <td>{{$demo->id}}</td>
                                   <td></td>
-                                  <td>{{$demo->demoName}}</td>
+                                  <td style="cursor:pointer;"  onclick="openPhoto('{{$demo->id}}');">{{$demo->demoName}}</td>
                                   <td></td>
                                   <td></td>
                                   <td></td>
@@ -77,8 +77,8 @@
                   function(index){
                       ///确认的回调
                       layer.close(index);
-                      /*$.get('deleteTask', {
-                          "taskId": id,
+                      $.get('deleteDemo', {
+                          "id": id,
                           "sid": '{{$sid}}'
                       }, function(data, status) {
                           var res = data; //JSON.parse(data);
@@ -93,7 +93,7 @@
                           }else{
                               layer.alert("失败--" + status);
                           }
-                      });*/
+                      });
                   },
                   function(index){
                       ///取消的回调

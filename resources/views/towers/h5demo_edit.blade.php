@@ -186,7 +186,7 @@
             
 
             $.get('save_demo?sid={{$sid}}', {
-                    "id ": {{$demo->id}},
+                    "id": {{$demo->id}},
                     "ownerId" : '{{$sid}}',
                     "demoName" : $('#edit-name').val(),
                     "demoImage" : '',
