@@ -18,6 +18,9 @@ Route::get('/', function () {
 //Route::get('user/login.html', 'UserController@pageLogin');
 
 
+Route::get('top/listTask', 'ArticleController@listTasks');
+
+
 Route::get('user/listTask', 'TowerController@listTasks');
 Route::get('user/addTask', 'TowerController@addTask');
 Route::get('user/deleteTask', 'TowerController@deleteTask');
