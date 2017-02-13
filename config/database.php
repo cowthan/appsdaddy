@@ -72,7 +72,7 @@ return [
 //            ],
             'host' => 'localhost',
             'driver'    => 'mysql',
-            'database'  => 'tieta',  //tieta2是不知道哪个公司的
+            'database'  => 'appsdaddy',  
             'username'  => 'root',
             'password'  => '1234321',
             'charset'   => 'utf8',

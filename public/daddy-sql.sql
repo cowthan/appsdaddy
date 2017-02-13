@@ -7,21 +7,11 @@ FLUSH PRIVILEGES;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123' WITH GRANT OPTION;
 FLUSH   PRIVILEGES;
 
-----------涵涵
-CREATE database if not exists app_hanhan CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-use app_hanhan;
 
-----------合法美女
-CREATE database if not exists app_beauty CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-use app_beauty;
 
-----------违法美女
-CREATE database if not exists app_sexy CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-use app_sexy;
-
-----------铁塔
-CREATE database if not exists tieta CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-use tieta;
+----------appsdaddy
+CREATE database if not exists appsdaddy CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+use appsdaddy;
 
 show variables like "%char%";
 set names utf8;
@@ -45,6 +35,8 @@ create table if not exists users(
 )engine=innodb default charset=utf8 auto_increment=1;
 
 
+insert into users (username, password, sid, company, realname) values('firstblood','gdzdh0901','112233445544332200','第一个用户','Damon');
+
 create table if not exists admins(
 	id int primary key auto_increment,
 	username varchar(200) default '',
@@ -60,8 +52,8 @@ create table if not exists admins(
 
 insert into admins (username, password, sid, company, realname) values('jack-daddy','99990529138','112233445544332211','最高管理员','Jack');
 
-insert into admins (username, password, sid, company, realname) values('admin1','99990529138','112233445544332211','普通管理员','Jack');
-insert into admins (username, password, sid, company, realname) values('admin2','99990529138','112233445544332211','普通管理员','Jack');
+insert into admins (username, password, sid, company, realname) values('admin1','99990529138','112233445544332212','普通管理员','Jack');
+insert into admins (username, password, sid, company, realname) values('admin2','99990529138','112233445544332213','普通管理员','Jack');
 
 create table if not exists task(
 	id int primary key auto_increment,
@@ -84,5 +76,16 @@ create table if not exists task(
 	thumbEnd varchar(200) default ''
 )engine=innodb default charset=utf8 auto_increment=1;
 
+create table if not exists h5_demos(
+	id int primary key auto_increment,
+	ownerId varchar(200) default '',
+	demoName varchar(200) default '',
+	createTime varchar(200) default '',
+	updateTime varchar(200) default '',
+	demoImage varchar(200) default '',
+	h5Code text default '',
+	cssCode text default '',
+	jsCode text default '',
+	meta text default ''
+)engine=innodb default charset=utf8 auto_increment=1;
 
-rds72u8iow6ff1cng0b7.mysql.rds.aliyuncs.com

@@ -31,6 +31,9 @@ Route::get('user/task_mgmr.html', 'PageController@pageTaskMgmr');
 Route::get('user/user_mgmr.html', 'PageController@pageUserMgmr');
 Route::get('user/add_admin.html', 'PageController@pageAddAdmin');
 Route::get('user/add_user.html', 'PageController@pageAddUser');
+Route::get('user/h5demo_edit.html', 'PageController@pageH5Demos');
+Route::get('user/h5demo_list.html', 'PageController@pageH5DemoList');
+Route::get('user/save_demo', 'PageController@addH5Demo');
 
 Route::get('user/loginAdmin', 'AdminController@login');
 Route::get('user/deleteAdmin', 'AdminController@deleteAdmin');

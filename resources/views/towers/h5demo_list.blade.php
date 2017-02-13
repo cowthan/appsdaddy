@@ -1,6 +1,7 @@
+
 @extends('layouts.master')
 
-@section('title', '管理员管理')
+@section('title', '任务管理')
 
 
 @section('content')
@@ -8,38 +9,41 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              管理员配置&nbsp;&nbsp;&nbsp;&nbsp;
-                              <a href="add_admin.html?sid={{$sid}}" target="_blank"><button type="button" class="btn btn-primary">添加管理员</button></a>
+                              Demo管理&nbsp;&nbsp;&nbsp;&nbsp;
+                              <a href="h5demo_edit.html?sid={{$sid}}" target="_blank">
+                                <button type="button" class="btn btn-primary">新demo</button>
+                              </a>
                           </header>
                           <table class="table table-striped border-top" id="sample_1">
                           <thead>
                           <tr>
                               <th>序号</th>
-                              <th class="hidden-phone">账号</th>
-                              <th class="hidden-phone">密码</th>
-                              <th class="hidden-phone">姓名</th>
-                              <th class="hidden-phone">备注</th>
-                              <th class="hidden-phone">删除</th>
+                              <th class="hidden-phone">作者</th>
+                              <th class="hidden-phone">demo</th>
+                              <th class="hidden-phone">--</th>
+                              <th class="hidden-phone">--</th>
+                              <th class="hidden-phone">--</th>
+                              <th class="hidden-phone">--</th>
+                              <th class="hidden-phone">--</th>
+                              <th class="hidden-phone">--</th>
                           </tr>
                           </thead>
                           <tbody>
-                          @foreach ($admins as $admin)
-                              <tr class="odd gradeX">
-                                  <td>{{$admin->id}}</td>
-                                  <td>{{$admin->username}}</td>
-                                  <td class="hidden-phone">{{$admin->password}}</td>
-                                  <td class="hidden-phone">{{$admin->realname}}</td>
-                                  <td class="center hidden-phone">{{$admin->company}}</td>
-                                  @if ($admin->username == 'jack-daddy')
-                                      <td><button type="button" class="btn btn-danger">无法删除</button>  </td>
-                                  @else
-                                      <td>
-                                          <button type="button" class="btn btn-danger" onclick="deleteById('{{$admin->id}}');">删除</button>
-                                      </td>
-                                  @endif
+                          @foreach ($demos as $demo)
+                              <tr class="odd gradeX" style="cursor:pointer;" onclick="openPhoto('{{$demo->id}}');">
+                                  <td>{{$demo->id}}</td>
+                                  <td></td>
+                                  <td>{{$demo->demoName}}</td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td>
+                                      <button type="button" class="btn btn-danger" onclick="deleteById('{{$demo->id}}');">删除</button>
+                                  </td>
                               </tr>
                           @endforeach
-
                           </tbody>
                           </table>
                       </section>
@@ -60,15 +64,20 @@
 
       });
 
+      function openPhoto(id){
+          window.open("h5demo_edit.html?sid={{$sid}}&id=" + id);  
+            //location.href = ";
+        }
+
       function deleteById(id){
-            console.log('{{$sid}}');
+          console.log('{{$sid}}');
           console.log(id);
           layer.confirm('你确定要删除吗？',
                   {icon: 3},
                   function(index){
                       ///确认的回调
                       layer.close(index);
-                      $.get('deleteAdmin', {
+                      /*$.get('deleteTask', {
                           "taskId": id,
                           "sid": '{{$sid}}'
                       }, function(data, status) {
@@ -84,7 +93,7 @@
                           }else{
                               layer.alert("失败--" + status);
                           }
-                      });
+                      });*/
                   },
                   function(index){
                       ///取消的回调
@@ -96,5 +105,4 @@
 
 
   </script>
-
 @endsection

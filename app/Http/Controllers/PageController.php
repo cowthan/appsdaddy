@@ -9,10 +9,51 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Excel;
 
+class AA{}
+
 class PageController extends Controller{
 
 	public function pageLogin(Request $request){
 		return view('towers.login');
+	}
+
+	public function pageH5Demos(Request $request){
+		$sid = $request->input('sid');
+		$id = $request->input('id');
+		if(empty($sid)){
+			return redirect('user/login.html');
+		}
+
+		if(empty($id) || $id == 0){
+			$demo = new AA();
+			$demo->id = 0;
+			$demo->demoName = '';
+			$demo->h5Code = '<h1 id="tttttt">test</h1>';
+			$demo->cssCode = '#tttttt{ color: white; background: blue;}';
+			$demo->jsCode = '$(\'#tttttt\').hide(3000).show(3000)';
+
+			// $demo = {
+			// 		'id' : 0,
+			// 		'demoName' : '',
+			// 		'h5Code' : '<h1 id="tttttt">test</h1>',
+			// 		'cssCode' : '#tttttt{ color: white; background: blue;}',
+			// 		'jsCode' : '$(\'#tttttt\').hide(3000).show(3000)'
+			// 	};
+				//echo "ddddd<hr/>";
+				//print_r($demo);
+			return view('towers.h5demo_edit', [
+					'sid' => $sid,
+					'demo' => $demo
+				]);
+		}else{
+			$demos = DB::table('h5_demos')->where("id", "=", $id)->get();
+			return view('towers.h5demo_edit', [
+					'sid' => $sid,
+					'demo' => $demos[0]
+				]);
+		}
+		
+		
 	}
 
 	public function pageIndex(Request $request){
@@ -37,6 +78,21 @@ class PageController extends Controller{
 				'adminCount' => $adminCount,
 				'taskCount' => $taskCount,
 				'todayTaskCount' => $todayTaskCount,
+				'sid' => $sid
+		]);
+	}
+
+	public function pageH5DemoList(Request $request){
+
+		$sid = $request->input('sid');
+		if(empty($sid)){
+			return redirect('user/login.html');
+		}
+
+		$admins = DB::table('h5_demos')->orderBy('id','asc')->get();
+
+		return view('towers.h5demo_list', [
+				'demos' => $admins,
 				'sid' => $sid
 		]);
 	}
@@ -184,6 +240,76 @@ class PageController extends Controller{
 				]);
     }
 	
+	public function addH5Demo(Request $request){
+
+
+    	$sid = $request->input('sid');
+		$id = $request->input('id');
+    	$ownerId = $request->input('ownerId');
+    	$demoName = $request->input('demoName');
+		$demoImage = $request->input('demoImage') or '';
+		$h5Code = $request->input('h5Code');
+		$cssCode = $request->input('cssCode');
+		$jsCode = $request->input('jsCode');
+		$meta = $request->input('meta') or '';
+
+		$result_arr = array();
+
+		if(empty($sid)){
+			$result_arr = array(
+					'code'=>'2',
+					'msg'=>'未登录'
+			);
+		}else if(empty($ownerId)){
+			$result_arr = array(
+					'code'=>'2',
+					'msg'=>'请指定作者'
+			);
+		}else if(empty($demoName)){
+			$result_arr = array(
+					'code'=>'2',
+					'msg'=>'请指定demo名'
+			);
+		}else if(empty($h5Code) || empty($cssCode) || empty($jsCode)){
+			$result_arr = array(
+					'code'=>'2',
+					'msg'=>'html，css，js这三个总得有一个有值吧'
+			);
+		}
+		else{
+			if(empty($id) || $id == 0){
+				//insert
+				DB::table('h5_demos')->insert([
+						'ownerId'=>$ownerId,
+						'demoName'=>$demoName,
+						'demoImage'=>$demoImage,
+						'h5Code'=>$h5Code,
+						'cssCode'=>$cssCode,
+						'jsCode'=>$jsCode,
+						'meta' => $meta
+				]);
+			}else{
+				//update
+				DB::table('h5_demos')->update([
+						'ownerId'=>$ownerId,
+						'demoName'=>$demoName,
+						'demoImage'=>$demoImage,
+						'h5Code'=>$h5Code,
+						'cssCode'=>$cssCode,
+						'jsCode'=>$jsCode,
+						'meta' => $meta
+				])->where('id', $id);
+			}
+			$result_arr = array(
+					'code'=>'0',
+					'msg'=>'ok'
+			);
+		}
+
+    	//return response(json_encode($result_arr));
+		return response()->json($result_arr);
+		
+    }
 
 
     public function time2second($seconds){
