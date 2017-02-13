@@ -71,7 +71,7 @@
                     "password" : signin_password.val()
                 }, function(data, status) {
                     var res = data; //JSON.parse(data);
-					alert("dd");
+					//alert("dd");
                     if(status === "success"){
                         if(res.code == '0'){
                             layer.msg("成功了！");
