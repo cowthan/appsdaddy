@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    echo "dd";
+    return view('admin.login');
+});
+Route::get('login', function () {
+    return view('admin.login');
 });
 
 //Route::get('user/login.html', 'UserController@pageLogin');

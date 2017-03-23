@@ -23,8 +23,8 @@
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
-      <script src="{{ URL::asset('/') }}/assets/towers/js/html5shiv.js"></script>
-      <script src="{{ URL::asset('/') }}/assets/towers/js/respond.min.js"></script>
+      <script src="{{ URL::asset('/') }}/assets/account/js/html5shiv.js"></script>
+      <script src="{{ URL::asset('/') }}/assets/account/js/respond.min.js"></script>
     <![endif]-->
   </head>
 

@@ -11,48 +11,55 @@ use Illuminate\Database\Eloquent\Model;
 class AdminController extends Controller{
 
 	public function login(Request $request){
-		$username = $request->input('username');
-		$password = $request->input('password');
+		if($request->isMethod('get')){
+			///get：返回登录页
+			return view('admin.login', ['name' => 'seven']);
+		}else if($request->isMethod('post')){
+			///post：处理登录，并返回json
+			$username = $request->input('username');
+			$password = $request->input('password');
 
-		$result_arr = array();
+			$result_arr = array();
 
-		if(empty($username) || empty($password)){
-			$result_arr = array(
-					'code'=>'2',
-					'msg'=>'所有字段不能为空'
-			);
-		}else{
-			$users = DB::table('admins')->where("username", "=", $username)->get() or [];
-			if(count($users) == 0){
+			if(empty($username) || empty($password)){
 				$result_arr = array(
-						'code'=>'1',
-						'msg'=>'用户不存在',
-						'result' => "{}"
+						'code'=>'2',
+						'msg'=>'所有字段不能为空'
 				);
 			}else{
-				$user = $users[0];
-				if($user->password != $password){
+				$users = DB::table('admins')->where("username", "=", $username)->get() or [];
+				if(count($users) == 0){
 					$result_arr = array(
-							'code'=>'2',
-							'msg'=>'密码错误',
+							'code'=>'1',
+							'msg'=>'用户不存在',
 							'result' => "{}"
 					);
 				}else{
-					$result_arr = array(
-							'code'=>'0',
-							'msg'=>'ok',
-							'result'=>array(
-									'username'=>$user->username,
-									'realname'=>$user->realname,
-									'company'=>$user->company,
-									'sid'=>$user->sid
-							)
-					);
-				}
+					$user = $users[0];
+					if($user->password != $password){
+						$result_arr = array(
+								'code'=>'2',
+								'msg'=>'密码错误',
+								'result' => "{}"
+						);
+					}else{
+						$result_arr = array(
+								'code'=>'0',
+								'msg'=>'ok',
+								'result'=>array(
+										'username'=>$user->username,
+										'realname'=>$user->realname,
+										'company'=>$user->company,
+										'sid'=>$user->sid
+								)
+						);
+					}
 
+				}
 			}
+			return response()->json($result_arr);
 		}
-		return response()->json($result_arr);
+
 	}
 
     public function regist(Request $request){

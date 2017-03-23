@@ -14,7 +14,7 @@ class AA{}
 class PageController extends Controller{
 
 	public function pageLogin(Request $request){
-		return view('towers.login');
+		return view('account.login');
 	}
 
 	public function pageH5Demos(Request $request){
@@ -41,13 +41,13 @@ class PageController extends Controller{
 			// 	};
 				//echo "ddddd<hr/>";
 				//print_r($demo);
-			return view('towers.h5demo_edit', [
+			return view('account.h5demo_edit', [
 					'sid' => $sid,
 					'demo' => $demo
 				]);
 		}else{
 			$demos = DB::table('h5_demos')->where("id", "=", $id)->get();
-			return view('towers.h5demo_edit', [
+			return view('account.h5demo_edit', [
 					'sid' => $sid,
 					'demo' => $demos[0]
 				]);
@@ -73,7 +73,7 @@ class PageController extends Controller{
 		$taskCount = DB::table('task')->count();
 		//$todayTaskCount = DB::table(task)->count();
 
-		return view('towers.index', [
+		return view('account.index', [
 				'userCount' => $userCount,
 				'adminCount' => $adminCount,
 				'taskCount' => $taskCount,
@@ -91,7 +91,7 @@ class PageController extends Controller{
 
 		$admins = DB::table('h5_demos')->orderBy('id','asc')->get();
 
-		return view('towers.h5demo_list', [
+		return view('account.h5demo_list', [
 				'demos' => $admins,
 				'sid' => $sid
 		]);
@@ -106,7 +106,7 @@ class PageController extends Controller{
 
 		$admins = DB::table('admins')->orderBy('id','asc')->get();
 
-		return view('towers.admin_mgmr', [
+		return view('account.admin_mgmr', [
 				'admins' => $admins,
 				'sid' => $sid
 		]);
@@ -151,7 +151,7 @@ class PageController extends Controller{
 			
 		}
 
-		return view('towers.task_mgmr', [
+		return view('account.task_mgmr', [
 				'tasks' => $tasks,
 				'sid' => $sid
 		]);
@@ -166,7 +166,7 @@ class PageController extends Controller{
 
 		$users = DB::table('users')->orderBy('id','asc')->get();
 
-		return view('towers.user_mgmr', [
+		return view('account.user_mgmr', [
 				'users' => $users,
 				'sid' => $sid
 		]);
@@ -178,11 +178,11 @@ class PageController extends Controller{
 			return redirect('user/login.html');
 		}
 
-		return view('towers.add_new_admin', ['sid' => $sid]);
+		return view('account.add_new_admin', ['sid' => $sid]);
 	}
 
 	public function pageAddUser(Request $request){
-		return view('towers.add_new_user');
+		return view('account.add_new_user');
 	}
 
 	public function taskInfo(Request $request){
@@ -197,7 +197,7 @@ class PageController extends Controller{
 			//echo $task->status2;
 		}
 
-		return view('towers.task_info', [
+		return view('account.task_info', [
 				'task' => $task
 		]);
 	}
